@@ -10,19 +10,19 @@
 using namespace std;
 
 vector<vector<int>> g;
-vector<int> visit;
+vector<int> used;
 vector<int> result;
 
 bool dfs(int i) {
-  switch (visit[i]) {
+  switch (used[i]) {
     case WHITE:
-      visit[i] = GRAY;
+      used[i] = GRAY;
       for (int son : g[i]) {
         if (!dfs(son)) {
           return false;
         }
       }
-      visit[i] = BLACK;
+      used[i] = BLACK;
       result.emplace_back(i + 1);
       return true;
     case BLACK:
@@ -36,7 +36,7 @@ int main() {
   int n, m;
   cin >> n >> m;
   g.resize(n);
-  visit.resize(n, WHITE);
+  used.resize(n, WHITE);
   for (int i = 0; i != m; ++i) {
     int from, to;
     cin >> from >> to;
